@@ -9,3 +9,8 @@ The PI, is running Ubuntu server and is sequestered on my desk hooked up to an o
 The PI hosts a FastAPI/Uvicorn API and File server that facilitaties the interaction to the scannner and in the future, the printer.  The api can be used via the openapi docs that FastAPI autogenerates or by the custom website that is a WIP.
 
 ![alt text](.github/assets/PI-API.png)
+
+### Start/Stop
+
+- To start the server, run `pi-utility/server/start.sh -p SUDO_PASS` and it will handle log redirection and the pid.
+- To stop the server, run `pi-utility/server/stop.sh` and it will stop the server.
