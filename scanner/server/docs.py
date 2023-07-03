@@ -9,6 +9,8 @@ class Docs():
 
     def refresh_files(self):
         files = [f for f in self.files_dir.iterdir() if f.is_file()]
+        files = [f for f in files if '.gitkeep' not in str(f)]
+
         self.files = files
 
     def get_formatted_files(self):
@@ -17,4 +19,3 @@ class Docs():
 
     def __str__(self):
         return str(self.get_formatted_files())
-
