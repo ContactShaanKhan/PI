@@ -13,13 +13,18 @@ class ScanResolution(IntEnum):
 
 class Executor():
 
-    def __init__(self, scripts_dir):
+    def __init__(self, scripts_dir, sudo_pass):
         self.scripts_dir = scripts_dir
+        self.sudo_pass = sudo_pass
 
-    def run(self, command, capture_output):
-        formatted_command = shlex.split(command)
+    def run(self, command, capture_output=False, shell=False, sudo=False):
+        if sudo:
+            command = f'echo {self.sudo_pass} | sudo -S {command}'
+            shell = True
+
+        formatted_command = shlex.split(command) if not shell else command
         try:
-            res = subprocess.run(formatted_command, capture_output=capture_output, check=True)
+            res = subprocess.run(formatted_command, capture_output=capture_output, check=True, shell=shell)
             return res
 
         except subprocess.CalledProcessError:
@@ -32,7 +37,7 @@ class Executor():
 
         LOGGER.info(f'Scanning with command {command}')
 
-        if self.run(command) is not None:
+        if self.run(command, sudo=True) is not None:
             return f'{name}.jpg'
 
         return None

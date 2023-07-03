@@ -1,6 +1,8 @@
 #! /home/shadowbadow/python_env/bin/python
 
 
+import os
+import sys
 from typing import Union
 from fastapi import FastAPI, Request
 from docs import Docs
@@ -8,6 +10,12 @@ from executor import Executor, ScanResolution
 from logs import logger as LOGGER
 import pathlib
 from pydantic import BaseModel
+
+
+# Ensure the SUDO_PASS ENV Variable is set
+if 'SUDO_PASS' not in os.environ:
+    LOGGER.error('Must set SUDO_PASS environment variable before running')
+    sys.exit(1)
 
 
 # Get the current directory
@@ -31,7 +39,7 @@ def startup_docs():
 
 @app.on_event('startup')
 def startup_executor():
-    app.executor = Executor(scripts_dir)
+    app.executor = Executor(scripts_dir, os.environ.get('SUDO_PASS'))
 
 
 class ResponseModel(BaseModel):

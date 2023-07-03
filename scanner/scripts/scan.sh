@@ -21,6 +21,6 @@ fi
 
 echo "Starting scan utility with output file: \"$file_name\" with resolution $res"
 
-scanimage > "$file_name".jpg --format jpeg --resolution="$res" -p
+scanimage > ../documents/"$file_name".jpg --format jpeg --resolution="$res" -p
 
 echo ""
