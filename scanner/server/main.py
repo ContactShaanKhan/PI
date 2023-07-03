@@ -5,6 +5,7 @@ import os
 import sys
 from typing import Union
 from fastapi import FastAPI, Request
+from fastapi.responses import FileResponse
 from docs import Docs
 from executor import Executor, ScanResolution
 from logs import logger as LOGGER
@@ -58,9 +59,20 @@ def get_files(request: Request) -> ResponseModel:
     )
     return response
 
+@app.get('/file/{name}')
+def get_file(request: Request, name: str):
+    ''' Get file by name '''
+
+    if (file := request.app.docs.get_file(name)) is None:
+        return ResponseModel(
+            message='failure',
+            data={'message': 'file does not exist'}
+        )
+
+    return FileResponse(str(file))
 
 @app.post('/refresh-files')
-def refresh_files(request:Request) -> ResponseModel:
+def refresh_files(request: Request) -> ResponseModel:
     ''' Refresh the local file database. Only necessary to run if files are modified manually on the server '''
 
     request.app.docs.refresh_files()
