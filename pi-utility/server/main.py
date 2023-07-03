@@ -1,4 +1,4 @@
-#! /home/shadowbadow/python_env/bin/python
+#! /home/shadowbadow/mambaforge/envs/python3.11-PI/bin/python
 
 
 import os
