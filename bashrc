@@ -22,9 +22,10 @@ clr='\[\033[00m\]'      # Reset
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
-export PATH="$PATH:/home/shadowbadow/python_env/bin"
 
-
+# Add python node environments to PATH
+export PATH="$PATH:/home/shadowbadow/mambaforge/envs/python3.11-PI/bin"
+export PATH="$PATH:/home/shadowbadow/mambaforge/envs/nodejs-PI/bin"
 
 # append to the history file, don't overwrite it
 shopt -s histappend
