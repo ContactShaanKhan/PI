@@ -48,7 +48,7 @@ class ResponseModel(BaseModel):
     data: dict = {}
 
 
-@app.get('/files')
+@app.get('/files', tags=['Scanner Utility'])
 def get_files(request: Request) -> ResponseModel:
     ''' Get the files. '''
 
@@ -59,7 +59,7 @@ def get_files(request: Request) -> ResponseModel:
     )
     return response
 
-@app.get('/file/{name}')
+@app.get('/file/{name}', tags=['Scanner Utility'])
 def get_file(request: Request, name: str):
     ''' Get file by name '''
 
@@ -71,7 +71,7 @@ def get_file(request: Request, name: str):
 
     return FileResponse(str(file))
 
-@app.post('/refresh-files')
+@app.post('/refresh-files', tags=['Scanner Utility'])
 def refresh_files(request: Request) -> ResponseModel:
     ''' Refresh the local file database. Only necessary to run if files are modified manually on the server '''
 
@@ -79,7 +79,7 @@ def refresh_files(request: Request) -> ResponseModel:
     return ResponseModel(message='success')
 
 
-@app.post('/scan/{resolution}/{name}')
+@app.post('/scan/{resolution}/{name}', tags=['Scanner Utility'])
 def scan_file(
     request: Request,
     name: str,
@@ -104,7 +104,7 @@ def scan_file(
     )
 
 
-@app.delete('/file/{name}')
+@app.delete('/file/{name}', tags=['Scanner Utility'])
 def delete_file(
     request: Request,
     name: str
