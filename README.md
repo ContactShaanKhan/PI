@@ -7,3 +7,5 @@ The PI, is running Ubuntu server and is sequestered on my desk hooked up to an o
 ## Server
 
 The PI hosts a FastAPI/Uvicorn API and File server that facilitaties the interaction to the scannner and in the future, the printer.  The api can be used via the openapi docs that FastAPI autogenerates or by the custom website that is a WIP.
+
+![alt text](.github/assets/PI-API.png)
