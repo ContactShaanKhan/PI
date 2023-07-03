@@ -6,7 +6,7 @@ res=600
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         -n|--name) file_name="$2"; shift ;;
-	-r|--resolution) res="$2"; shift ;;
+	    -r|--resolution) res="$2"; shift ;;
 	*) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
