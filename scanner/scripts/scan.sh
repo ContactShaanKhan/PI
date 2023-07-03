@@ -5,8 +5,8 @@
 res=600
 while [[ "$#" -gt 0 ]]; do
     case $1 in
-        -n|--name) file_name="$2"; shift 2;;
-	-r|--resolution) res="$2"; shift 2;;
+        -n|--name) file_name="$2"; shift ;;
+	-r|--resolution) res="$2"; shift ;;
 	*) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
@@ -23,3 +23,4 @@ echo "Starting scan utility with output file: \"$file_name\" with resolution $re
 
 scanimage > "$file_name".jpg --format jpeg --resolution="$res" -p
 
+echo ""
