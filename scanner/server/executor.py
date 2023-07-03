@@ -6,9 +6,9 @@ import shlex
 
 
 class ScanResolution(IntEnum):
-    LOW = 300
-    MEDIUM = 600
-    HIGH = 900
+    LOW = 150
+    MEDIUM = 300
+    HIGH = 600
 
 
 class Executor():

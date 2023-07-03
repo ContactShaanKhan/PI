@@ -49,6 +49,8 @@ class ResponseModel(BaseModel):
 
 @app.get('/files')
 def get_files(request: Request) -> ResponseModel:
+    ''' Get the files. '''
+
     files = request.app.docs.get_formatted_files()
     response = ResponseModel(
         message='success',
@@ -59,6 +61,8 @@ def get_files(request: Request) -> ResponseModel:
 
 @app.post('/refresh-files')
 def refresh_files(request:Request) -> ResponseModel:
+    ''' Refresh the local file database. Only necessary to run if files are modified manually on the server '''
+
     request.app.docs.refresh_files()
     return ResponseModel(message='success')
 
@@ -69,6 +73,14 @@ def scan_file(
     name: str,
     resolution: ScanResolution
 ) -> ResponseModel:
+    ''' Scan the document with the specified resolution. '''
+
+    if request.app.docs.file_exists(name):
+        return ResponseModel(
+            message='failure',
+            data={'message': 'file already exists'}
+        )
+
     if (name := request.app.executor.scan(name, resolution)) is None:
         return ResponseModel(message='failure')
 
@@ -79,6 +91,23 @@ def scan_file(
         data={'file': name}
     )
 
+
+@app.delete('/file/{name}')
+def delete_file(
+    request: Request,
+    name: str
+):
+    ''' Delete a file by the formatted name. '''
+
+    if (file := request.app.docs.get_file(name)) is None:
+        return ResponseModel(
+            message='failure',
+            data={'message': 'file does not exist'}
+        )
+
+    request.app.docs.delete_file(file)
+
+    return ResponseModel(message='success')
 
 
 if __name__ == '__main__':
